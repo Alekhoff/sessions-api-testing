@@ -1,4 +1,4 @@
-﻿using Core.Model;
+﻿using PersonsApi.Model;
 
 namespace PersonsApi.Services;
 

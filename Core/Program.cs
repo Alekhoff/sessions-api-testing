@@ -1,14 +1,9 @@
 using System.Reflection;
-using Core.Interfaces;
+using CoreLibrary.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(pOptions =>
@@ -23,45 +18,50 @@ builder.Services.AddCors(pOptions =>
     {
         pBuilder.WithOrigins("http://localhost:3000");
     });
-    
 });
 
-var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-var controllerTypes = allAssemblies
-    .SelectMany(pAssembly => pAssembly.GetTypes())
+// Load Projects
+PersonsApi.Startup.RegisterModule(builder.Services, builder.Configuration);
+WeatherForecastApi.Startup.RegisterModule(builder.Services, builder.Configuration);
+
+builder.Services.AddControllers();
+
+// Logging 
+// Log all registered services in the ServiceCollection
+Console.WriteLine("Custom Registered Services:");
+var myServices = builder.Services
+    .Where(pService => pService.ServiceType.Namespace != null && 
+                      pService.ServiceType.Namespace.StartsWith("PersonsApi") || 
+                      pService.ServiceType.Namespace.StartsWith("WeatherForecastApi"))
+    .ToList();
+
+foreach (var service in myServices)
+{
+    Console.WriteLine($"ServiceType: {service.ServiceType.FullName}, Lifetime: {service.Lifetime}, ImplementationType: {service.ImplementationType?.FullName}");
+}
+
+
+// Log all controller types explicitly
+var controllerTypes = AppDomain.CurrentDomain.GetAssemblies()
+    .SelectMany(pAssembly => pAssembly.GetExportedTypes())
     .Where(pType => typeof(ControllerBase).IsAssignableFrom(pType) && !pType.IsAbstract);
 
-foreach (var controllerType in controllerTypes)
+foreach (var controller in controllerTypes)
 {
-    builder.Services.AddControllers()
-        .AddApplicationPart(controllerType.Assembly)
-        .AddControllersAsServices();
+    Console.WriteLine($"Controller: {controller.FullName}");
 }
-
-
-var startupType = typeof(IModuleStartup);
-var startupInstances = Assembly.GetExecutingAssembly()
-    .GetTypes()
-    .Where(pType => startupType.IsAssignableFrom(pType) && pType is { IsInterface: false, IsAbstract: false })
-    .Select(Activator.CreateInstance)
-    .Cast<IModuleStartup>();
-
-foreach (var startup in startupInstances)
-{
-    startup.ConfigureServices(builder.Services, builder.Configuration);
-}
-
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseCors("AllowAll");
 app.UseHttpsRedirection();
+app.MapHealthChecks("/health");
 
 app.UseAuthorization();
 

@@ -1,4 +1,4 @@
-﻿namespace Core.Model;
+﻿namespace PersonsApi.Model;
 
 public class Person
 {
