@@ -23,8 +23,10 @@ builder.Services.AddCors(pOptions =>
 // Load Projects
 PersonsApi.Startup.RegisterModule(builder.Services, builder.Configuration);
 WeatherForecastApi.Startup.RegisterModule(builder.Services, builder.Configuration);
+PokemonApi.Startup.RegisterModule(builder.Services, builder.Configuration);
 
 builder.Services.AddControllers();
+builder.Services.AddHttpClient();
 
 // Logging 
 // Log all registered services in the ServiceCollection
@@ -32,7 +34,8 @@ Console.WriteLine("Custom Registered Services:");
 var myServices = builder.Services
     .Where(pService => pService.ServiceType.Namespace != null && 
                       pService.ServiceType.Namespace.StartsWith("PersonsApi") || 
-                      pService.ServiceType.Namespace.StartsWith("WeatherForecastApi"))
+                      pService.ServiceType.Namespace.StartsWith("WeatherForecastApi") || 
+                      pService.ServiceType.Namespace.StartsWith("PokemonApi"))
     .ToList();
 
 foreach (var service in myServices)

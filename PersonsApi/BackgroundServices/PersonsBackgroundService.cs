@@ -9,7 +9,7 @@ public class PersonsBackgroundService : BackgroundService
         while (!ct.IsCancellationRequested)
         {
             Console.WriteLine("Background job for PersonsApi running...");
-            await Task.Delay(10000, ct); 
+            await Task.Delay(1000000, ct); 
         }
     }
 }
