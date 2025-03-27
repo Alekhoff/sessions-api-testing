@@ -24,6 +24,7 @@ builder.Services.AddCors(pOptions =>
 PersonsApi.Startup.RegisterModule(builder.Services, builder.Configuration);
 WeatherForecastApi.Startup.RegisterModule(builder.Services, builder.Configuration);
 PokemonApi.Startup.RegisterModule(builder.Services, builder.Configuration);
+StarWars.Startup.RegisterModule(builder.Services, builder.Configuration);
 
 builder.Services.AddControllers();
 builder.Services.AddHttpClient();
@@ -35,7 +36,8 @@ var myServices = builder.Services
     .Where(pService => pService.ServiceType.Namespace != null && 
                       pService.ServiceType.Namespace.StartsWith("PersonsApi") || 
                       pService.ServiceType.Namespace.StartsWith("WeatherForecastApi") || 
-                      pService.ServiceType.Namespace.StartsWith("PokemonApi"))
+                      pService.ServiceType.Namespace.StartsWith("PokemonApi") || 
+                      pService.ServiceType.Namespace.StartsWith("StarWars") )
     .ToList();
 
 foreach (var service in myServices)

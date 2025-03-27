@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreLibrary", "CoreLibrary\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonApi", "PokemonApi\PokemonApi.csproj", "{76DDF33D-1CC9-413B-B6C5-0C5AB641BC3F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWars", "StarWars\StarWars.csproj", "{0BA2E00C-A10D-4ECE-9D39-FA531386A7DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{735DA425-9AF5-4998-A3C2-5229B63BB26F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,13 @@ Global
 		{76DDF33D-1CC9-413B-B6C5-0C5AB641BC3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76DDF33D-1CC9-413B-B6C5-0C5AB641BC3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76DDF33D-1CC9-413B-B6C5-0C5AB641BC3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BA2E00C-A10D-4ECE-9D39-FA531386A7DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BA2E00C-A10D-4ECE-9D39-FA531386A7DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BA2E00C-A10D-4ECE-9D39-FA531386A7DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BA2E00C-A10D-4ECE-9D39-FA531386A7DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{735DA425-9AF5-4998-A3C2-5229B63BB26F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{735DA425-9AF5-4998-A3C2-5229B63BB26F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{735DA425-9AF5-4998-A3C2-5229B63BB26F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{735DA425-9AF5-4998-A3C2-5229B63BB26F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
